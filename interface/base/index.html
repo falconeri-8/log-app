@@ -1,0 +1,227 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--    <head>-->
+<!--        <meta charset="UTF-8">-->
+<!--        <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--        <title>User Management</title>-->
+<!--        <link rel="stylesheet" href="styles.css">-->
+<!--        <script type="module" src="script.js"></script>-->
+<!--    </head>-->
+<!--    <body>-->
+
+<!--        <header>-->
+<!--            <div class="title-container">-->
+<!--                <h1 class="title">INTERFACE</h1>-->
+<!--            </div>-->
+<!--            <div class="buttons-container">-->
+<!--            </div>-->
+<!--        </header>-->
+<!--        <main>-->
+<!--            <div class="login-container" style="display: none;">-->
+<!--                <form>-->
+<!--                    <input type="password" name="password" id="password" placeholder="ENTER SECRET KEY">-->
+<!--                </form>-->
+<!--            </div>-->
+<!--            <div class="author-container" style="display: flex;">-->
+<!--                <div class="manage-profiles-container">-->
+<!--                    <header>-->
+<!--                        <h2>MANAGE PROFILES</h2>-->
+<!--                    </header>-->
+
+<!--                    <div class="profile-list-container">-->
+<!--                        <div class="manage-profiles-search-container">-->
+<!--                            <input type="text" name="search" id="search" placeholder="[SEARCH]">-->
+<!--                        </div>-->
+<!--                        <div class="profile-list-header">-->
+<!--                            <div class="header-col-name">NAME</div>-->
+<!--                            <div class="header-col-date">DATE ADDED</div>-->
+<!--                            <div class="header-col-action">ACTIONS</div>-->
+<!--                        </div>-->
+<!--                        <div class="profile-list-body">-->
+
+<!--                            <div class="profile-row">-->
+<!--                                <div class="profile-row-data-col">-->
+<!--                                    <div class="profile-row-data-col-name">John Doe</div>-->
+<!--                                    <div class="profile-row-data-col-date">2025-08-09</div>-->
+<!--                                </div>-->
+<!--                                <div class="profile-row-actions-col">-->
+<!--                                    <button class="profile-action">VIEW</button>-->
+<!--                                </div>-->
+<!--                            </div>-->
+
+<!--                        </div>-->
+<!--                        <div class="profile-list-footer">-->
+<!--                            <div class="pagination-info">-->
+<!--                                0-0 of 0-->
+<!--                            </div>-->
+<!--                            <div class="pagination-buttons">-->
+<!--                                <button class="pagination-button" disabled>Previous</button>-->
+<!--                                <button class="pagination-button">Next</button>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="profile-container">-->
+<!--                    <header>-->
+<!--                        <h2>PROFILE</h2>-->
+<!--                    </header>-->
+<!--                    <div class="profile-detail-container">-->
+<!--                        <div class="profile-detail-body">-->
+<!--                            <div class="profile-detail-body-general">-->
+<!--                                <div class="profile-detail-body-general-info">-->
+<!--                                    <div class="profile-detail-body-general-info-block">-->
+<!--                                        <div class="profile-detail-body-general-info-block-title">NAME</div>-->
+<!--                                        <input type="text" name="profile-name" id="profile-name" placeholder="...">-->
+<!--                                    </div>-->
+<!--                                    <div class="profile-detail-body-general-info-block">-->
+<!--                                        <div class="profile-detail-body-general-info-block-title">CONTACT</div>-->
+<!--                                        <input type="text" name="profile-name" id="profile-name" placeholder="...">-->
+<!--                                    </div>-->
+<!--                                    <div class="profile-detail-body-general-info-block">-->
+<!--                                        <div class="profile-detail-body-general-info-block-title">DATE ADDED</div>-->
+<!--                                        <input type="text" name="profile-name" id="profile-name" placeholder="00-00-000" disabled>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div class="profile-detail-body-general-image" id = "profile-image">-->
+<!--                                    <img src="https://picsum.photos/200/300" alt="">-->
+<!--                                </div>-->
+
+<!--                            </div>-->
+<!--                            <div class="profile-detail-body-description">-->
+<!--                                <div class="profile-detail-body-description-title">DESCRIPTION</div>-->
+<!--                                <textarea name="profile-description" id="profile-description" cols="30" rows="10"></textarea>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="profile-detail-footer">-->
+<!--                            <button class="profile-footer-button">New</button>-->
+<!--                            <button class="profile-footer-button">Save</button>-->
+
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </main>-->
+
+<!--        <div id="messageContainer" class="message-container">-->
+<!--&lt;!&ndash;            <p id="message-text">Authorized</p>&ndash;&gt;-->
+<!--        </div>-->
+
+<!--        <footer>-->
+
+<!--        </footer>-->
+
+<!--    </body>-->
+<!--</html>-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management</title>
+    <script type="module" src="script.js"> </script>
+    <link rel="stylesheet" href="styles.css"></head>
+    <script type="module" src="script.js"></script>
+<body>
+<header>
+    <div class="title-container">
+        <h1 class="title">INTERFACE</h1>
+    </div>
+    <div class="buttons-container">
+    </div>
+</header>
+
+<main>
+    <div class="login-container" style="display: flex;">
+        <form>
+            <input type="password" name="password" id="password" placeholder="ENTER SECRET KEY">
+        </form>
+    </div>
+
+    <div class="main-container" style="display: none;">
+        <div class="panel profiles-panel">
+            <header class="panel-header">
+                <h2 class="panel-title">MANAGE PROFILES</h2>
+            </header>
+
+            <div class="list-container">
+                <div class="search-container">
+                    <input type="text" class="search-input" name="search" id="search" placeholder="[SEARCH]">
+                </div>
+
+                <div class="table-header">
+                    <div class="col-name">NAME</div>
+                    <div class="col-date">DATE ADDED</div>
+                    <div class="col-actions">ACTIONS</div>
+                </div>
+
+                <div class="table-body">
+                    <div class="table-row">
+                        <div class="data-col">
+                            <div class="data-name">John Doe</div>
+                            <div class="data-date">2025-08-09</div>
+                        </div>
+                        <div class="actions-col">
+                            <button class="btn">VIEW</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="list-footer">
+                    <div class="pagination-info">0-0 of 0</div>
+                    <div class="pagination-buttons">
+                        <button class="pagination-btn" disabled>Previous</button>
+                        <button class="pagination-btn">Next</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel profile-panel">
+            <header class="panel-header">
+                <h2 class="panel-title">PROFILE</h2>
+            </header>
+
+            <div class="detail-container">
+                <div class="detail-body">
+                    <div class="general-section">
+                        <div class="info-section">
+                            <div class="field-group">
+                                <div class="field-label">NAME</div>
+                                <input type="text" class="field-input" name="profile-name" placeholder="...">
+                            </div>
+                            <div class="field-group">
+                                <div class="field-label">CONTACT</div>
+                                <input type="text" class="field-input" name="profile-contact" placeholder="...">
+                            </div>
+                            <div class="field-group">
+                                <div class="field-label">DATE ADDED</div>
+                                <input type="text" class="field-input" name="profile-date" placeholder="00-00-000" disabled>
+                            </div>
+                        </div>
+                        <div class="image-section">
+                            <img src="https://picsum.photos/200/300" alt="Profile" class="profile-image" id="profile-image">
+                        </div>
+                    </div>
+
+                    <div class="description-section">
+                        <div class="description-label">DESCRIPTION</div>
+                        <textarea class="description-textarea" name="profile-description" id="profile-description"></textarea>
+                    </div>
+                </div>
+
+                <div class="detail-footer">
+                    <button class="footer-btn">New</button>
+                    <button class="footer-btn">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<div id="messageContainer" class="message-container">
+    <!-- Message content will be added here -->
+</div>
+
+</body>
+</html>
