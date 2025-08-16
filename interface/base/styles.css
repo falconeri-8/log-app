@@ -292,7 +292,6 @@ header {
     gap: 3rem;
     min-height: 12.5rem;
     flex: 0 0 auto;
-    background-color: red;
 }
 
 .info-section {
@@ -356,8 +355,6 @@ header {
     gap: 0.75rem;
     flex: 1 1 auto;
     min-height: 12.5rem;
-
-    background-color: red;
 }
 
 .description-label {

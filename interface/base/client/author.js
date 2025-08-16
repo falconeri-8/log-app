@@ -6,7 +6,7 @@ async function authenticate() {
         e.preventDefault();
         const inputKey = document.getElementById('password').value;
         try {
-            const response = await fetch('/api/authors/verify-key', {
+            const response = await fetch('/api/access/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -15,6 +15,7 @@ async function authenticate() {
             });
             const data = await response.json();
             if (data.success) {
+                localStorage.setItem('authToken', data.token);
                 document.querySelector('.login-container').style.display = 'none';
                 notify(`Authorized`, 2000);
                 setTimeout(() => {
@@ -31,7 +32,5 @@ async function authenticate() {
         }
     });
 }
-
-async function logout() {}
 
 export { authenticate };

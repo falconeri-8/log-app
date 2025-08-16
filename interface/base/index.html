@@ -40,7 +40,7 @@
                     <div class="col-actions">ACTIONS</div>
                 </div>
 
-                <div class="table-body">
+                <div class="table-body" id="table-body">
                     <div class="table-row">
                         <div class="data-col">
                             <div class="data-name">John Doe</div>
@@ -73,19 +73,19 @@
                         <div class="info-section">
                             <div class="field-group">
                                 <div class="field-label">NAME</div>
-                                <input type="text" class="field-input" name="profile-name" placeholder="...">
+                                <input type="text" class="field-input" name="profile-name" id="profile-name" placeholder="...">
                             </div>
                             <div class="field-group">
                                 <div class="field-label">CONTACT</div>
-                                <input type="text" class="field-input" name="profile-contact" placeholder="...">
+                                <input type="text" class="field-input" name="profile-contact" id="profile-contact" placeholder="...">
                             </div>
                             <div class="field-group">
                                 <div class="field-label">DATE ADDED</div>
-                                <input type="text" class="field-input" name="profile-date" placeholder="00-00-000" disabled>
+                                <input type="text" class="field-input" name="profile-date" id="profile-date" placeholder="00-00-000" disabled>
                             </div>
                         </div>
                         <div class="image-section">
-                            <img src="https://picsum.photos/200/300" alt="Profile" class="profile-image" id="profile-image">
+                            <img src="../graphics/image-plus.png" alt="Profile" class="profile-image" id="profile-image">
                         </div>
                     </div>
 
@@ -96,8 +96,8 @@
                 </div>
 
                 <div class="detail-footer">
-                    <button class="footer-btn">New</button>
-                    <button class="footer-btn">Save</button>
+                    <button class="footer-btn" id="fresh-profile">New</button>
+                    <button class="footer-btn" id="save-profile">Save</button>
                 </div>
             </div>
         </div>

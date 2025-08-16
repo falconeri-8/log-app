@@ -1,3 +1,5 @@
+// utilities.js
+
 function notify(text, duration = 3000) {
     const messageContainer = document.getElementById('messageContainer');
 
