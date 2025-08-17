@@ -179,6 +179,10 @@ header {
     font-size: 0.75rem;
 }
 
+.table-row:hover {
+    cursor: pointer;
+}
+
 .table-header {
     font-weight: 500;
     color: var(--text-disabled);

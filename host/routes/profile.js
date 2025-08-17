@@ -1,9 +1,9 @@
 const express = require('express');
 const Profile = require('../models/Profile');
 const auth = require('../middleware/authentication.js');
+const { sort } = require('../middleware/collections.js');
 const router = express.Router();
 
-// Create profile
 router.post("/", auth, async (req, res) => {
     try {
         const { name, contact, description } = req.body
@@ -45,7 +45,6 @@ router.post("/", auth, async (req, res) => {
     }
 })
 
-// Update profile
 router.put("/:id", auth, async (req, res) => {
     try {
         const profile = await Profile.findById(req.params.id)
@@ -81,47 +80,38 @@ router.put("/:id", auth, async (req, res) => {
     }
 })
 
-router.get("/name/:name", async (req, res) => {
+router.get('/', async (req, res) => {
     try {
-        const profile = await Profile.findOne({name: req.params.name})
-        if (!profile) {
-            return res.status(404).json({
-                success: false,
-                message: "Profile not found"
-            })
-        }
-        res.json({
+        const page = req.query.page || 1;
+            const limit = req.query.limit || 10;
+        const search = req.query.search || '';
+
+        const filter = search ? {
+            $or : [
+                {name: {$regex: search, $options: 'i'}},
+                {contact: {$regex: search, $options: 'i'}},
+            ]
+        } : {};
+        // Use this for searching for one at a time,
+        // or preload 100 IndexedDB entries and sort through that for multiple entries (no need for api call after each search)
+        // const results = await Profile.findOne({
+        //     $or: [
+        //         {name: {$regex: search, $options: 'i'}},
+        //         {contact: {$regex: search, $options: 'i'}},
+        //     ]
+        // })
+        const results = await sort(Profile, page, limit, filter);
+
+        res.status(200).json({
             success: true,
-            profile
+            ...results,
         })
     } catch (error) {
         res.status(500).json({
             success: false,
-            message: "Server error"
+            message: error.message
         })
     }
 })
-
-router.get("/contact/:contact", async (req, res) => {
-    try {
-        const profile = await Profile.findOne({contact: req.params.contact})
-        if (!profile) {
-            return res.status(404).json({
-                success: false,
-                message: "Profile not found"
-            })
-        }
-        res.json({
-            success: true,
-            profile
-        })
-    } catch (error) {
-        res.status(500).json({
-            success: false,
-            message: "Server error"
-        })
-    }
-})
-
 
 module.exports = router;

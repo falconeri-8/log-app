@@ -2,8 +2,47 @@ import {notify} from "./utilities.js";
 
 let profileId = 'default'
 
-async function getProfile() {
+async function renderProfiles(page = 1, limit = 10, search = '') {
 
+    // const response = await fetch(`/api/profiles/name/${input}`);
+    // const data = await response.json();
+    // if (data.success) {
+    //     const profile = data.profile;
+    //     const table_body = document.getElementById('table-body');
+    //     const row = document.createElement('div');
+    //     row.className = 'table-row';
+    //     const dataCol = document.createElement('div');
+    //     dataCol.className = 'data-col';
+    //     dataCol.innerHTML = `
+    //                 <div class="data-name">
+    //                 ${profile.name}
+    //                 </div>
+    //                 <div class="data-date">
+    //                 ${profile.dateofcreation}
+    //                 </div>
+    //             `;
+    //     const actionsCol = document.createElement('div');
+    //     actionsCol.className = 'actions-col';
+    //
+    //     const button = document.createElement('button');
+    //     button.className = 'btn';
+    //     button.textContent = 'VIEW'
+    //
+    //     button.addEventListener('click', () => displayProfile(data));
+    //     row.addEventListener('click', () => displayProfile(data));
+    //
+    //     actionsCol.appendChild(button);
+    //     row.appendChild(dataCol);
+    //     row.appendChild(actionsCol);
+    //
+    //     while (table_body.firstChild) {
+    //         table_body.removeChild(table_body.firstChild);
+    //     }
+    //     table_body.appendChild(row);
+    //
+    // } else {
+    //     notify('Unidentified Profile', 2000);
+    // }
 }
 
 async function setImage() {
@@ -70,6 +109,7 @@ async function saveProfile() {
         const data = await response.json();
         if (data.success) {
             notify(data.message, 2000);
+            await renderProfiles();
         } else {
             notify(data.message, 2000);
         }
@@ -101,45 +141,10 @@ async function filterProfile(event) {
     if (event.key === 'Enter') {
         const input = document.getElementById("search").value;
         if (input) {
-            const response = await fetch(`/api/profiles/name/${input}`);
-            const data = await response.json();
-            if (data.success) {
-                const profile = data.profile;
-                const table_body = document.getElementById('table-body');
-                const row = document.createElement('div');
-                row.className = 'table-row';
-                const dataCol = document.createElement('div');
-                dataCol.className = 'data-col';
-                dataCol.innerHTML = `
-                    <div class="data-name">
-                    ${profile.name}
-                    </div>
-                    <div class="data-date">
-                    ${profile.dateofcreation}
-                    </div>
-                `;
-                const actionsCol = document.createElement('div');
-                actionsCol.className = 'actions-col';
-
-                const button = document.createElement('button');
-                button.className = 'btn';
-                button.textContent = 'VIEW';
-                button.addEventListener('click', () => displayProfile(data));
-
-                actionsCol.appendChild(button);
-                row.appendChild(dataCol);
-                row.appendChild(actionsCol);
-
-                while (table_body.firstChild) {
-                    table_body.removeChild(table_body.firstChild);
-                }
-                table_body.appendChild(row);
-
-            } else {
-                notify('Unidentified Profile', 2000);
-            }
+            await renderProfiles(1, 10, input); // Limited to the current page only
         } else {
             notify('Empty Search', 2000);
+            await renderProfiles();
         }
     }
 }
@@ -149,6 +154,9 @@ async function profileInterface() {
     document.getElementById("fresh-profile").onclick = freshProfile;
     document.getElementById("search").onkeyup = filterProfile;
     document.getElementById("save-profile").onclick = saveProfile;
+    document.getElementById('prev-btn').onclick = () => renderProfiles(currentPage - 1);
+    document.getElementById('next-btn').onclick = () => renderProfiles(currentPage + 1);
+    await renderProfiles();
 }
 
 window.displayProfile = displayProfile;
