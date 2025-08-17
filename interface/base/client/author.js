@@ -1,6 +1,18 @@
 import {notify} from "./utilities.js";
 import {profileInterface} from "./profile.js";
 
+document.getElementById('cycle-btn').addEventListener('click', function(){
+    notify('404 ~ POST /api/access/join', 2000,'rgb(200, 15, 15)')
+})
+
+document.getElementById('exit-btn').addEventListener('click', function(){
+    document.getElementById('exit-btn').style.display = 'none';
+    document.getElementById('cycle-btn').textContent = 'JOIN';
+    document.querySelector('.main-container').style.display = 'none';
+    document.querySelector('.login-container').style.display = 'flex';
+    notify('Session Terminated');
+})
+
 async function authenticate() {
     document.querySelector('form').addEventListener('submit', async function (e) {
         e.preventDefault();
@@ -21,6 +33,8 @@ async function authenticate() {
                 setTimeout(() => {
                     document.querySelector('.main-container').style.display = 'flex';
                 }, 2300)
+                document.getElementById('exit-btn').style.display = 'block';
+                document.getElementById('cycle-btn').textContent = 'UPGRADE';
                 await profileInterface();
             } else {
                 notify(`Unidentified`, 2000);

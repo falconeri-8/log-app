@@ -47,14 +47,25 @@ header {
     font-weight: 400;
 }
 
+.buttons-container {
+    display: flex;
+    gap: 0.25rem;
+}
+
 .button {
-    background-color: var(--border-color);
-    color: var(--text-primary);
-    padding: 0.5rem 1rem;
+    background-color: var(--bg-primary);
+    color: var(--text-secondary);
+    padding: 0.75rem 0.75rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.1rem;
     border-radius: 0.25rem;
     border: none;
     cursor: pointer;
-    margin-left: 0.5rem;
+    transition: color 0.3s ease;
+}
+
+.button:hover {
+    color: var(--text-primary);
 }
 
 /* Login Container */
