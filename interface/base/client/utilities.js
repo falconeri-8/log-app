@@ -30,6 +30,8 @@ function notify(text, duration = 3000, indicator = 'white') {
     }, duration);
 }
 
+
+
 window.notify = notify;
 
 export { notify };

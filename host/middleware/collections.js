@@ -13,7 +13,7 @@ const sort = async (collection, page = 1, limit = 10, filter = {}, method = {_id
           .sort(method)
 
       return {
-          data: results,
+          profiles: results,
           sorting: {
               currentPage: page,
               pages,

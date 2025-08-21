@@ -3,11 +3,13 @@ const mongoose = require('mongoose');
 const profileSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true
+        required: true,
+        index: true
     },
     contact: {
         type: String,
-        required: true
+        required: true,
+        index: true
     },
     description: {
         type: String,

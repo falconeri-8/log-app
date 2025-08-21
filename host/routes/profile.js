@@ -80,11 +80,13 @@ router.put("/:id", auth, async (req, res) => {
     }
 })
 
-router.get('/', async (req, res) => {
+router.post('/filtered', async (req, res) => {
     try {
-        const page = req.query.page || 1;
-            const limit = req.query.limit || 10;
-        const search = req.query.search || '';
+        const { page = 1, limit = 10, search = ''} = req.body;
+
+        // const page = req.query.page || 1;
+        // const limit = req.query.limit || 10;
+        // const search = req.query.search || '';
 
         const filter = search ? {
             $or : [

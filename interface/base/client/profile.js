@@ -1,48 +1,83 @@
 import {notify} from "./utilities.js";
 
 let profileId = 'default'
+let currentPage = 1;
+let totalPages = 1;
+
+async function updatePagination(sorting) {
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    const pageInfo = document.getElementById('pagination-info');
+
+    prevBtn.disabled = !sorting.previous;
+    nextBtn.disabled = !sorting.next;
+
+    pageInfo.textContent = `${sorting.start}-${sorting.end} of ${sorting.count}`
+}
 
 async function renderProfiles(page = 1, limit = 10, search = '') {
 
-    // const response = await fetch(`/api/profiles/name/${input}`);
-    // const data = await response.json();
-    // if (data.success) {
-    //     const profile = data.profile;
-    //     const table_body = document.getElementById('table-body');
-    //     const row = document.createElement('div');
-    //     row.className = 'table-row';
-    //     const dataCol = document.createElement('div');
-    //     dataCol.className = 'data-col';
-    //     dataCol.innerHTML = `
-    //                 <div class="data-name">
-    //                 ${profile.name}
-    //                 </div>
-    //                 <div class="data-date">
-    //                 ${profile.dateofcreation}
-    //                 </div>
-    //             `;
-    //     const actionsCol = document.createElement('div');
-    //     actionsCol.className = 'actions-col';
-    //
-    //     const button = document.createElement('button');
-    //     button.className = 'btn';
-    //     button.textContent = 'VIEW'
-    //
-    //     button.addEventListener('click', () => displayProfile(data));
-    //     row.addEventListener('click', () => displayProfile(data));
-    //
-    //     actionsCol.appendChild(button);
-    //     row.appendChild(dataCol);
-    //     row.appendChild(actionsCol);
-    //
-    //     while (table_body.firstChild) {
-    //         table_body.removeChild(table_body.firstChild);
-    //     }
-    //     table_body.appendChild(row);
-    //
-    // } else {
-    //     notify('Unidentified Profile', 2000);
-    // }
+    try {
+        const response = await fetch('/api/profiles/filtered', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                page,
+                limit,
+                search
+            })
+        })
+        const data = await response.json();
+
+        if (!data.profiles || data.profiles.length === 0) {
+            notify('No Profiles Found');
+            return;
+        }
+
+        if (data.success) {
+            currentPage = page;
+            totalPages = data.sorting.pages;
+
+            updatePagination(data.sorting);
+
+            const profiles = data.profiles;
+            const table_body = document.getElementById('table-body');
+            while (table_body.firstChild) {
+                table_body.removeChild(table_body.firstChild);
+            }
+                profiles.forEach(profile => {
+                const row = document.createElement('div');
+                row.className = 'table-row';
+                const dataCol = document.createElement('div');
+                dataCol.className = 'data-col';
+                dataCol.innerHTML = `
+                            <div class="data-name">
+                            ${profile.name}
+                            </div>
+                            <div class="data-date">
+                            ${profile.dateofcreation}
+                            </div>
+                        `;
+                const actionsCol = document.createElement('div');
+                actionsCol.className = 'actions-col';
+                const button = document.createElement('button');
+                button.className = 'btn';
+                button.textContent = 'VIEW'
+                button.addEventListener('click', () => displayProfile(profile));
+                row.addEventListener('click', () => displayProfile(profile));
+                actionsCol.appendChild(button);
+                row.appendChild(dataCol);
+                row.appendChild(actionsCol);
+                table_body.appendChild(row);
+            })
+        } else {
+            notify('Unidentified Profile');
+        }
+    } catch (error) {
+        notify('Error fetching profiles');
+    }
 }
 
 async function setImage() {
@@ -109,7 +144,7 @@ async function saveProfile() {
         const data = await response.json();
         if (data.success) {
             notify(data.message, 2000);
-            await renderProfiles();
+            await renderProfiles(); // await renderProfiles(currentPage);
         } else {
             notify(data.message, 2000);
         }
@@ -127,8 +162,7 @@ async function freshProfile() {
     profileId = 'default';
 }
 
-async function displayProfile(data) {
-    const profile = data.profile;
+async function displayProfile(profile) {
     profileId = profile.id;
     document.getElementById("profile-name").value = profile.name;
     document.getElementById("profile-contact").value = profile.contact;
@@ -141,10 +175,10 @@ async function filterProfile(event) {
     if (event.key === 'Enter') {
         const input = document.getElementById("search").value;
         if (input) {
-            await renderProfiles(1, 10, input); // Limited to the current page only
+            await renderProfiles(1, 10, input);
         } else {
             notify('Empty Search', 2000);
-            await renderProfiles();
+            await renderProfiles(1);
         }
     }
 }
@@ -154,8 +188,16 @@ async function profileInterface() {
     document.getElementById("fresh-profile").onclick = freshProfile;
     document.getElementById("search").onkeyup = filterProfile;
     document.getElementById("save-profile").onclick = saveProfile;
-    document.getElementById('prev-btn').onclick = () => renderProfiles(currentPage - 1);
-    document.getElementById('next-btn').onclick = () => renderProfiles(currentPage + 1);
+    document.getElementById('prev-btn').onclick = () => {
+        if (currentPage > 1) {
+            renderProfiles(currentPage - 1);
+        }
+    };
+    document.getElementById('next-btn').onclick = () => {
+        if (currentPage < totalPages) {
+            renderProfiles(currentPage + 1);
+        }
+    };
     await renderProfiles();
 }
 
