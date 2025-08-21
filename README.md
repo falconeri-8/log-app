@@ -1,22 +1,24 @@
-# Author Control Interface
+### ![Static Badge](https://img.shields.io/badge/-AUTHOR_CONTROL_INTERFACE-rgb(25,25,25)?style=for-the-badge)
 
-### Description
-A native .js web-app featuring profiles management interface for an author intended application
+A vanilla web-app featuring a profile management interface for an author-intended application
 
-### Stack
-`HTML` `CSS` <br><br>
-`JavaScript` [`Node`](https://nodejs.org/) [`Express`](https://expressjs.com/) [`Mongoose`](https://www.npmjs.com/package/mongoose) [`CORS`](https://www.npmjs.com/package/cors) [`JWT`](https://www.npmjs.com/package/jsonwebtoken)
+### ![Static Badge](https://img.shields.io/badge/tech-rgb(25,25,25)?style=for-the-badge)
+`HTML` `CSS` `JavaScript` [`Node`](https://nodejs.org/) [`Express`](https://expressjs.com/) [`Mongoose`](https://www.npmjs.com/package/mongoose) [`CORS`](https://www.npmjs.com/package/cors) [`JWT`](https://www.npmjs.com/package/jsonwebtoken)
 
 <br>
 <details>
 <summary>
-    development @falconeri
-  </summary>
+  <span style="font-family: monospace;">contribute @falconeri @you</span>
+</summary>
 <br>
 
 - [x] Pagination and Indexed search `0h`
 - [ ] /image database `0i`
 - [ ] API rate limiting `0j`
+- [ ] Optimized queries `0k`
+- [ ] Caching `0l`
+- [ ] Optimized codebase `0m`
+- [ ] Migrating to modern frameworks `1a`
 
 </details>
 
