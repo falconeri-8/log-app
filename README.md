@@ -1,14 +1,11 @@
-### ![Static Badge](https://img.shields.io/badge/-AUTHOR_CONTROL_INTERFACE-rgb(25,25,25)?style=for-the-badge)
+### ![Static Badge](https://img.shields.io/badge/-AUTHOR_CONTROL_INTERFACE-rgb(0,0,0)?style=for-the-badge)
 
-A vanilla web-app featuring a profile management interface for an author-intended application
-
-### ![Static Badge](https://img.shields.io/badge/tech-rgb(25,25,25)?style=for-the-badge)
-`HTML` `CSS` `JavaScript` [`Node`](https://nodejs.org/) [`Express`](https://expressjs.com/) [`Mongoose`](https://www.npmjs.com/package/mongoose) [`CORS`](https://www.npmjs.com/package/cors) [`JWT`](https://www.npmjs.com/package/jsonwebtoken)
+>A vanilla web-app featuring a profile management interface for an author-intended application
 
 <br>
 <details>
 <summary>
-  <span style="font-family: monospace;">contribute @falconeri @you</span>
+  contribute @you
 </summary>
 <br>
 
