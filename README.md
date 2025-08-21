@@ -14,7 +14,7 @@ A native .js web-app featuring profiles management interface for an author inten
   </summary>
 <br>
 
-- [ ] Pagination and Indexed search `0h`
+- [x] Pagination and Indexed search `0h`
 - [ ] /image database `0i`
 - [ ] API rate limiting `0j`
 
