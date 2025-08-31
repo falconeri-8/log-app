@@ -14,7 +14,8 @@
 - [ ] API rate limiting `0j`
 - [ ] Optimized queries `0k`
 - [ ] Caching `0l`
-- [ ] Optimized codebase `0m`
+- [ ] Improved error handling `0m`
+- [ ] Optimized codebase `0n`
 - [ ] Migrating to modern frameworks `1a`
 
 </details>

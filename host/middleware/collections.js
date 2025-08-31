@@ -32,6 +32,13 @@ const sort = async (collection, page = 1, limit = 10, filter = {}, method = {_id
     }
 };
 
+const validateImage = async (image) => {
+    if (image.size > 5 * 1024 * 1024) {
+        throw new Error('Image size limit 5MB')
+    }
+    return image;
+}
+
 module.exports = {
     sort
 }

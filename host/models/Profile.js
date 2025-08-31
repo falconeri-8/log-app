@@ -19,6 +19,10 @@ const profileSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
+    image: {
+        data: Buffer,
+        contentType: String,
+    },
     author: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Author',
