@@ -1,5 +1,3 @@
 /host/node_modules
 /host/package-lock.json
 /.idea
-.env
-host/seedProfiles.js

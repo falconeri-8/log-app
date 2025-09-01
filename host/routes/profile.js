@@ -79,7 +79,6 @@ router.post('/filtered', auth, async (req, res) => {
             $or: [
                 {name: {$regex: search, $options: 'i'}},
                 {contact: {$regex: search, $options: 'i'}},
-                {author: {$regex: req.author.id, $options: 'i'}},
             ]
         } : {author: req.author.id};
         
