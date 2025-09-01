@@ -75,12 +75,13 @@ router.post('/filtered', auth, async (req, res) => {
         const { page = 1, limit = 10, search = ''} = req.body;
 
         const filter = search ? {
-            $or : [
+            author: req.author.id,
+            $or: [
                 {name: {$regex: search, $options: 'i'}},
                 {contact: {$regex: search, $options: 'i'}},
             ]
-        } : {};
-
+        } : {author: req.author.id};
+        
         const results = await sort(Profile, page, limit, filter);
 
         const profilesWithImages = results.profiles.map(profile => {
