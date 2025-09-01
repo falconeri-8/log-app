@@ -215,14 +215,12 @@ class Manager {
     }
 
     DisplayProfile(profile) {
-       this.CurrentProfile = profile;
-       this.Elements["profile-name"].value = profile.name;
-       this.Elements["profile-contact"].value = profile.contact;
+        this.CurrentProfile = profile;
+        this.Elements["profile-name"].value = profile.name;
+        this.Elements["profile-contact"].value = profile.contact;
         this.Elements["profile-date"].value = new Date(profile.dateofcreation).toDateString();
         this.Elements["profile-description"].value = profile.description;
 
-       console.log(profile.image)
-        // Set profile preview from here
         if (profile.image && profile.image.data) {
             this.Elements["profile-image"].src = profile.image.data;
         } else {

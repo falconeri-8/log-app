@@ -18,9 +18,19 @@ router.post("/", auth, upload.single('image'),  async (req, res) => {
         const profileExists = await Profile.findOne({name})
 
         if (profileExists) {
+
+            const updateData = {name, contact, description};
+
+            if (req.file) {
+                updateData.image = {
+                    data: req.file.buffer,
+                    contentType: req.file.mimetype
+                };
+            }
+
             const updatedProfile = await Profile.findByIdAndUpdate(
                 profileExists.id,
-                {name, contact, description},
+                updateData,
                 {new: true}
             )
 
