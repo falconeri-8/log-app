@@ -4,22 +4,14 @@ const auth = require('../middleware/authentication.js');
 const { sort } = require('../middleware/collections.js');
 const router = express.Router();
 
-const multer = require("multer");
+const multer = require('multer');
+const storage = multer.memoryStorage();
 const upload = multer({
-    storage: multer.memoryStorage(), // Important: use memory storage
-    limits: {
-        fileSize: 5 * 1024 * 1024 // 5MB limit
-    },
-    fileFilter: (req, file, cb) => {
-        if (file.mimetype.startsWith('image/')) {
-            cb(null, true);
-        } else {
-            cb(new Error('Not an image file'), false);
-        }
-    }
+    storage: storage,
+    limits: { fileSize: 5 * 1024 * 1024 }
 });
 
-router.post("/", auth, upload.single("image"), async (req, res) => {
+router.post("/", auth, upload.single('image'),  async (req, res) => {
     try {
         const { name, contact, description } = req.body
 
@@ -39,16 +31,19 @@ router.post("/", auth, upload.single("image"), async (req, res) => {
             })
         }
 
-        const profile = new Profile({
+        const profileData = {
             name,
             contact,
             description,
-            image: {
+            author: req.author.id
+        };
+
+        if (req.file) {
+            profileData.image = {
                 data: req.file.buffer,
-                contentType: req.file.mimetype,
-            },
-            author: req.author.id,
-        })
+                contentType: req.file.mimetype
+            };
+        }
 
         await profile.save()
         // await profile.populate("author", "name key contact")
@@ -78,21 +73,22 @@ router.post('/filtered', auth, async (req, res) => {
 
         const results = await sort(Profile, page, limit, filter);
 
-        if (results.profiles) {
-            results.profiles = results.profiles.map(profile => {
-                if (profile.image && profile.image.data) {
-                    const base64Image = profile.image.data.toString('base64');
-                    profile.imageUrl = `data:${profile.image.contentType};base64,${base64Image}`;
-                }
-                // Remove the raw buffer data to reduce payload size
-                delete profile.image;
-                return profile;
-            });
-        }
+        const profilesWithImages = results.profiles.map(profile => {
+            const profileObj = profile.toObject();
+            if (profileObj.image && profileObj.image.data) {
+                profileObj.image = {
+                    data: `data:${profileObj.image.contentType};base64,${profileObj.image.data.toString('base64')}`,
+                    contentType: profileObj.image.contentType
+                };
+            }
+            return profileObj;
+        });
 
         res.status(200).json({
             success: true,
-            ...results,
+            profiles: profilesWithImages,
+            sorting: results.sorting,
+            // ...results,
         })
     } catch (error) {
         res.status(500).json({

@@ -1,3 +1,5 @@
+// client/profile.js
+
 import {notify, request} from "./utilities.js";
 
 class Manager {
@@ -124,15 +126,7 @@ class Manager {
 
         try {
             const data = await request('/api/profiles/',
-                // {
-                    formData
-                    // name,
-                    // contact,
-                    // description,
-                    // image: {
-                    //     data: image,
-                    // }
-                // }
+                formData
         , 'POST', true)
 
             if (data.success) {
@@ -217,22 +211,23 @@ class Manager {
     Pagination(sorting) {
         this.Elements["prev-btn"].disabled = !sorting.previous;
         this.Elements["next-btn"].disabled = !sorting.next;
-        this.Elements["pagination-info"].textContent = `${sorting.start}-${sorting.end} of ${sorting.count}`
+        this.Elements["pagination-info"].textContent = `${sorting.start} - ${sorting.end} of ${sorting.count}`
     }
 
     DisplayProfile(profile) {
        this.CurrentProfile = profile;
        this.Elements["profile-name"].value = profile.name;
        this.Elements["profile-contact"].value = profile.contact;
-       this.Elements["profile-date"].value = profile.dateofcreation;
-       this.Elements["profile-description"].value = profile.description;
+        this.Elements["profile-date"].value = new Date(profile.dateofcreation).toDateString();
+        this.Elements["profile-description"].value = profile.description;
 
-        if (profile.imageUrl) {
-            this.Elements["profile-image"].src = profile.imageUrl;
+       console.log(profile.image)
+        // Set profile preview from here
+        if (profile.image && profile.image.data) {
+            this.Elements["profile-image"].src = profile.image.data;
         } else {
             this.Elements["profile-image"].src = '';
         }
-
     }
 }
 
