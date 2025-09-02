@@ -3,4 +3,4 @@
 /.idea
 .env
 host/seedProfiles.js
-./.vercel
+/.vercel
