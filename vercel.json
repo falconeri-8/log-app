@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "installCommand": "cd host && npm install",
+  "buildCommand": "echo 'No build step required'",
+  "builds": [
+    {
+      "src": "host/server.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "interface/base/**",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/host/server.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/interface/base/$1"
+    }
+  ],
+  "env": {
+    "NODE_ENV": "production"
+  }
+}
