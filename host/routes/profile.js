@@ -55,6 +55,8 @@ router.post("/", auth, upload.single('image'),  async (req, res) => {
             };
         }
 
+        const profile = new Profile(profileData);
+
         await profile.save()
         // await profile.populate("author", "name key contact")
         res.status(201).json({
